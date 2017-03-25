@@ -7,7 +7,7 @@ using Assets.Scripts.Models;
 
 namespace Assets.Scripts.Factories
 {
-    class PlayerFactory
+    public class PlayerFactory
     {
         public static List<Player> GetPlayers(int num, IPlayerBehaviour _behaviour)
         {

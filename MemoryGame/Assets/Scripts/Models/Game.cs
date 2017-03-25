@@ -8,15 +8,25 @@ using Assets.Scripts.Unity;
 
 namespace Assets.Scripts.Models
 {
-    class Game
+    public class Game
     {
         List<Card> CardList;
         List<Player> PlayerList;
 
         public Game(ICardBehaviour cardBehaviour, IPlayerBehaviour playerBehaviour, int numPlayers)
         {
-            CardList = CardFactory.GetCards(cardBehaviour);
             PlayerList = PlayerFactory.GetPlayers(numPlayers, playerBehaviour);
+            CardList = CardFactory.DrawCards(cardBehaviour);
+        }
+
+        public void CardChanges()
+        {
+
+        }
+
+        public void PlayerChanges()
+        {
+
         }
 
     }

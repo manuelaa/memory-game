@@ -6,7 +6,7 @@ using Assets.Scripts.Models;
 
 namespace Assets.Scripts.Interfaces
 {
-    interface IPlayerBehaviour
+    public interface IPlayerBehaviour
     {
         void DrawName(PlayerEnum num, string name);
     }

@@ -8,24 +8,34 @@ using Assets.Scripts.Unity;
 
 namespace Assets.Scripts.Factories
 {
-    class CardFactory
+    public class CardFactory
     {
-        public static List<Card> GetCards(ICardBehaviour Behaviour)
+        private static List<Card> GetCards(ICardBehaviour behaviour)
         {
             //TODO: do it right
 
             List<Card> Cards = new List<Card>();
-            Cards.Add(new Card(1, "ONE", "One", Behaviour));
-            Cards.Add(new Card(2, "ONE", "One", Behaviour));
-            Cards.Add(new Card(3, "TWO", " Two", Behaviour));
-            Cards.Add(new Card(4, "TWO", " Two", Behaviour));
-            Cards.Add(new Card(5, "THREE", " Three", Behaviour));
-            Cards.Add(new Card(6, "THREE", " Three", Behaviour));
-            Cards.Add(new Card(7, "FOUR", " Four", Behaviour));
-            Cards.Add(new Card(8, "FOUR", " Four", Behaviour));
+            Cards.Add(new Card(1, "ONE", "One", behaviour));
+            Cards.Add(new Card(2, "ONE", "One", behaviour));
+            Cards.Add(new Card(3, "TWO", " Two", behaviour));
+            Cards.Add(new Card(4, "TWO", " Two", behaviour));
+            Cards.Add(new Card(5, "THREE", " Three", behaviour));
+            Cards.Add(new Card(6, "THREE", " Three", behaviour));
+            Cards.Add(new Card(7, "FOUR", " Four", behaviour));
+            Cards.Add(new Card(8, "FOUR", " Four", behaviour));
 
 
-            return new List<Card>();
+            return Cards;
+        }
+
+        public static List<Card> DrawCards(ICardBehaviour behaviour)
+        {
+            List<Card> cards = GetCards(behaviour);
+            foreach (Card card in cards)
+            {
+                card.Draw(0,0,0);
+            }
+            return cards;
         }
     }
 }

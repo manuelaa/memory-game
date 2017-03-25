@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Assets.Scripts.Interfaces
 {
-    interface IPlayer
+    public interface IPlayer
     {
         void Draw();
     }

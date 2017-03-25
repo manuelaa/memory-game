@@ -6,7 +6,7 @@ using Assets.Scripts.Interfaces;
 
 namespace Assets.Scripts.Models
 {
-    class Player : IPlayer
+    public class Player : IPlayer
     {
         public int ID { get; set; }
         public string Name { get; set; }

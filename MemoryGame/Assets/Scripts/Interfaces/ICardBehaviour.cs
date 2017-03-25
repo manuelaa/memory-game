@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Assets.Scripts.Models;
 
 namespace Assets.Scripts.Interfaces
 {
-    interface ICardBehaviour
+    public interface ICardBehaviour
     {
-        void Play();
+        void Draw(Card card, float x, float y, float z);
+        void Rotate();
+        void Click();
     }
 }

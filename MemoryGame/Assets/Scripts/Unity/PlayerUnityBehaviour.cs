@@ -9,7 +9,7 @@ using UnityEngine.UI;
 
 namespace Assets.Scripts.Unity
 {
-    class PlayerUnityBehaviour : IPlayerBehaviour
+    public class PlayerUnityBehaviour : IPlayerBehaviour
     {
         public void DrawName(PlayerEnum num, string name)
         {

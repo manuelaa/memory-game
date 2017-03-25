@@ -5,9 +5,11 @@ using System.Text;
 
 namespace Assets.Scripts.Interfaces
 {
-    interface ICard
+    public interface ICard
     {
-         
+        void Draw(float x, float y, float z);
+        void Rotate();
+        void Click();
     }
     
 }

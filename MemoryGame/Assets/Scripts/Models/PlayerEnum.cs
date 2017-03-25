@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Assets.Scripts.Models
 {
-    enum PlayerEnum
+    public enum PlayerEnum
     {
         Player1,   
         Player2,   

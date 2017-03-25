@@ -6,12 +6,13 @@ using Assets.Scripts.Interfaces;
 
 namespace Assets.Scripts.Models
 {
-    class Card
+    public class Card : ICard
     {
         public int ID { get; set; }
         public string Code { get; set; }
         public string Name { get; set; }
         public ICardBehaviour Behavior { get; set; }
+        public bool correct { get; set; }
 
         public Card(int _ID, string _code, string _name, ICardBehaviour _behavior)
         {
@@ -19,11 +20,22 @@ namespace Assets.Scripts.Models
             Code = _code;
             Name = _name;
             Behavior = _behavior;
+            correct = false;
         }
 
-        public void Play()
+        public void Draw(float x, float y, float z)
         {
-            Behavior.Play();
+            Behavior.Draw(this, x, y, z);
+        }
+
+        public void Rotate()
+        {
+            //Behavior.Draw();
+        }
+
+        public void Click()
+        {
+            //Behavior.Draw();
         }
     }
 }

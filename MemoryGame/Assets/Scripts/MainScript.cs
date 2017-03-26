@@ -19,7 +19,7 @@ public class MainScript : MonoBehaviour
     void Start ()
     {
         WinScreen.SetActive(false);
-        _game = new Game(new CardUnityBehaviour(), new PlayerUnityBehaviour(),  2, 2);
+        _game = new Game(new CardUnityBehaviour(), new PlayerUnityBehaviour(),  2, 6);
     }
 	
 	// Update is called once per frame

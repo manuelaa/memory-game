@@ -15,9 +15,9 @@ namespace Assets.Scripts.Models
         public PlayerEnum PlayerNum { get; set; }
 
 
-        public Player(int ID, string name, IPlayerBehaviour behaviour, PlayerEnum player)
+        public Player(int id, string name, IPlayerBehaviour behaviour, PlayerEnum player)
         {
-            ID = ID;
+            ID = id;
             Name = name;
             Score = 0;
             Behaviour = behaviour;

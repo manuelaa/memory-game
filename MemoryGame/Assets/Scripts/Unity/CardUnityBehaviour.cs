@@ -62,13 +62,13 @@ namespace Assets.Scripts.Unity
             //Debug.Log(EventSystem.current.currentSelectedGameObject.name);
         }
 
-        public void Rotate(bool back=true)
+        public void Rotate(bool back=true, string image= "cardBackground")
         {
 
             Button btn = (Button)GameObject.Find(buttonName).GetComponent(typeof(Button));
             if (!back)
             {
-                btn.image.sprite = Resources.Load<Sprite>("king");
+                btn.image.sprite = Resources.Load<Sprite>("CardImages/" + image);
             }
             else
             {
@@ -78,7 +78,7 @@ namespace Assets.Scripts.Unity
 
         private void RotateAfterDelay()
         {
-            Rotate(true);
+            Rotate();
         }
 
         public void WaitToRotate(float seconds, bool back)

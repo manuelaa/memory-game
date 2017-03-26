@@ -30,7 +30,7 @@ namespace Assets.Scripts.Models
 
         public void Rotate(bool back)
         {
-            Behavior.Rotate(back);
+            Behavior.Rotate(back, Code.ToLower());
         }
 
         public void Click()

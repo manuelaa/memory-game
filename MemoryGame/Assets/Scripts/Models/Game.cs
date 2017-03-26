@@ -25,15 +25,19 @@ namespace Assets.Scripts.Models
         {
             PlayerList = PlayerFactory.GetPlayers(numPlayers, playerBehaviour);
             CardList = CardFactory.DrawCards();
-            _numCards = numCards*2;
+            _numCards = numCards * 2;
         }
 
         public void CardChanges(int cardId)
         {
-            if (card1 != null)
+            var card = CardList.First(x => x.ID == cardId);
+            if(card.correct)
+                return; //ignore click
+
+            if (card1 != null )
             {
                 //drugo klikanje
-                var card2 = CardList.First(x => x.ID == cardId);
+                var card2 = card;
                 if (card1.ID == card2.ID)
                 {
                     UnityEngine.Debug.Log("ISTA KARTA DUDE");
@@ -46,9 +50,12 @@ namespace Assets.Scripts.Models
                     card2.Rotate(false);
 
                     UnityEngine.Debug.Log("POGODAK");
+
+                    CardList[CardList.IndexOf(card1)].correct = true;
+                    CardList[CardList.IndexOf(card2)].correct = true;
                     card1 = null;
 
-                    _cardCounter+=2;
+                    _cardCounter += 2;
                     PlayerChanges(true);
                     // klikanje druge karte
                 }
@@ -61,13 +68,13 @@ namespace Assets.Scripts.Models
                     card1.Behavior.WaitToRotate(3f, true);
                     card2.Behavior.WaitToRotate(3f, true);
                     PlayerChanges(false);
-                    //card1 = null;
+                    card1 = null;
                 }
             }
             else
             {
                 //prvo klikanje
-                card1 = CardList.First(x => x.ID == cardId);
+                card1 = card;
                 card1.Rotate(false);
                 UnityEngine.Debug.Log("PRVO KLIKANJE");
             }
@@ -77,21 +84,25 @@ namespace Assets.Scripts.Models
         {
             RewritePlayerScore(scored);
 
-            currentPlayer++;
-            if (currentPlayer == PlayerList.Count)
-                currentPlayer = 0;
+            // ako nije pogodio onda se igrac ne mijenja, ali se svejedno azuriraju  bodovi
+            if (!scored)
+            {
+                currentPlayer++;
+                if (currentPlayer == PlayerList.Count)
+                    currentPlayer = 0;
+            }
         }
 
         public void RewritePlayerScore(bool scored)
         {
-            if(scored)
+            if (scored)
                 PlayerList[currentPlayer].Score++;
             PlayerList[currentPlayer].Draw();
         }
 
         public bool CheckEnd()
         {
-            UnityEngine.Debug.Log(_cardCounter);
+            //UnityEngine.Debug.Log(_cardCounter);
 
             return _cardCounter == _numCards;
         }

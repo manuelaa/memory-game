@@ -14,12 +14,18 @@ namespace Assets.Scripts.Models
         List<Card> CardList;
         List<Player> PlayerList;
 
+        private int currentPlayer = 0;
+
+        private int _numCards = 0;
+        private int _cardCounter = 0;
+
         private Card card1;
 
-        public Game(ICardBehaviour cardBehaviour, IPlayerBehaviour playerBehaviour, int numPlayers)
+        public Game(ICardBehaviour cardBehaviour, IPlayerBehaviour playerBehaviour, int numPlayers, int numCards)
         {
             PlayerList = PlayerFactory.GetPlayers(numPlayers, playerBehaviour);
             CardList = CardFactory.DrawCards();
+            _numCards = numCards*2;
         }
 
         public void CardChanges(int cardId)
@@ -37,27 +43,84 @@ namespace Assets.Scripts.Models
                 else if (card1.Code == card2.Code)
                 {
                     //POGODAK
+                    card2.Rotate(false);
+
                     UnityEngine.Debug.Log("POGODAK");
                     card1 = null;
+
+                    _cardCounter+=2;
+                    PlayerChanges(true);
                     // klikanje druge karte
                 }
                 else
                 {
+                    card2.Rotate(false);
+
                     UnityEngine.Debug.Log("wrooooooooong");
-                    card1 = null;
+
+                    card1.Behavior.WaitToRotate(3f, true);
+                    card2.Behavior.WaitToRotate(3f, true);
+                    PlayerChanges(false);
+                    //card1 = null;
                 }
             }
             else
             {
                 //prvo klikanje
                 card1 = CardList.First(x => x.ID == cardId);
+                card1.Rotate(false);
                 UnityEngine.Debug.Log("PRVO KLIKANJE");
             }
         }
 
-        public void PlayerChanges()
+        public void PlayerChanges(bool scored)
+        {
+            RewritePlayerScore(scored);
+
+            currentPlayer++;
+            if (currentPlayer == PlayerList.Count)
+                currentPlayer = 0;
+        }
+
+        public void RewritePlayerScore(bool scored)
+        {
+            if(scored)
+                PlayerList[currentPlayer].Score++;
+            PlayerList[currentPlayer].Draw();
+        }
+
+        public bool CheckEnd()
+        {
+            UnityEngine.Debug.Log(_cardCounter);
+
+            return _cardCounter == _numCards;
+        }
+
+        public string GetWinner()
         {
 
+            var theBest = PlayerList.OrderByDescending(p => p.Score).First();
+            if (PlayerList.Any(x => x.Score == theBest.Score && x.ID != theBest.ID))
+                return "No one";
+            return theBest.Name;
+        }
+
+        public void Reset()
+        {
+            foreach (Card card in CardList)
+            {
+                card.correct = false;
+                card.Rotate(true);
+            }
+
+            foreach (Player player in PlayerList)
+            {
+                player.Score = 0;
+                player.Draw();
+            }
+
+            _cardCounter = 0;
+            currentPlayer = 0;
         }
 
     }

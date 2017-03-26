@@ -8,11 +8,18 @@ using UnityEngine.UI;
 public class MainScript : MonoBehaviour
 {
     private Game _game;
+
+    public GameObject WinScreen;
+    public GameObject btnYes;
+    public GameObject btnNo;
+    public Text Text;
+
     
     // Use this for initialization
     void Start ()
     {
-        _game = new Game(new CardUnityBehaviour(), new PlayerUnityBehaviour(),  2);
+        WinScreen.SetActive(false);
+        _game = new Game(new CardUnityBehaviour(), new PlayerUnityBehaviour(),  2, 2);
     }
 	
 	// Update is called once per frame
@@ -23,11 +30,26 @@ public class MainScript : MonoBehaviour
     public void CardChanges(int cardId)
     {
         _game.CardChanges(cardId);
+
+        if (_game.CheckEnd())
+        {
+            WinScreen.SetActive(true);
+            Text.text = _game.GetWinner() + " is winner! \nContinue?";
+        }
+
     }
 
-    public void PlayerChanges()
+    public void PlayAgain()
     {
-        _game.PlayerChanges();
+        _game.Reset();
+        WinScreen.SetActive(false);
+    }
+
+    public void Exit()
+    {
+        Debug.Log("QUIT");
+
+        Application.Quit();
     }
 
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,7 +15,8 @@ namespace Assets.Scripts.Unity
     {
         //private Card Card;
         private MainScript mainScript;
-        
+        private string buttonName = "";
+
         void Start()
         {
             GameObject go = GameObject.Find("Camera");
@@ -25,7 +27,7 @@ namespace Assets.Scripts.Unity
         {
             throw new NotImplementedException();
         }
-        
+
         public void Draw(Card _card, float x, float y, float z)
         {
             GameObject gameObject = GameObject.Find("Cards");
@@ -35,11 +37,14 @@ namespace Assets.Scripts.Unity
             btn.transform.position = new Vector3(x, y, z);
             btn.name = _card.ID.ToString();
             //btn.onClick.AddListener(() => OnClick());
+
+            btn.image.sprite = Resources.Load<Sprite>("cardBackground");
+
             btn.transform.SetParent(gameObject.transform, false);
 
             //btn.GetComponent<Button>().onClick.AddListener((delegate { OnClick(); }));
             btn.GetComponent<Button>().onClick.AddListener(() => OnClick());
-            
+            buttonName = _card.ID.ToString();
             //Card = _card;
         }
 
@@ -57,9 +62,53 @@ namespace Assets.Scripts.Unity
             //Debug.Log(EventSystem.current.currentSelectedGameObject.name);
         }
 
-        public void Rotate()
+        public void Rotate(bool back=true)
         {
-            throw new NotImplementedException();
+
+            Button btn = (Button)GameObject.Find(buttonName).GetComponent(typeof(Button));
+            if (!back)
+            {
+                btn.image.sprite = Resources.Load<Sprite>("king");
+            }
+            else
+            {
+                btn.image.sprite = Resources.Load<Sprite>("cardBackground");
+            }
         }
+
+        private void RotateAfterDelay()
+        {
+            Rotate(true);
+        }
+
+        public void WaitToRotate(float seconds, bool back)
+        {
+            //Invoke("RotateAfterDelay", seconds);
+
+            //TODO: change!
+            //DateTime now = DateTime.Now;
+            //DateTime then = now.AddSeconds(1);
+            //while (then>now)
+            //{
+            //    now = DateTime.Now;
+            //}
+            Rotate(true);
+            
+            //Wait(5, () => {
+            //    Rotate(back);
+            //    Debug.Log("ASDASD");
+            //});
+        }
+
+        //private void Wait(float seconds, Action action)
+        //{
+        //    StartCoroutine(_wait(seconds, action));
+        //}
+
+        //private IEnumerator _wait(float time, Action callback)
+        //{
+        //    yield return new WaitForSeconds(time);
+        //    callback();
+        //}
     }
 }

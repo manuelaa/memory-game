@@ -27,7 +27,7 @@ namespace Assets.Scripts.Models
 
         public void Draw()
         {
-            Behaviour.DrawName(PlayerNum, Name);
+            Behaviour.DrawName(PlayerNum, Name, Score);
         }
     }
 }

@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Assets.Scripts.Models;
+using System.Collections;
 
 namespace Assets.Scripts.Interfaces
 {
     public interface ICardBehaviour
     {
         void Draw(Card card, float x, float y, float z);
-        void Rotate();
+        void Rotate(bool back);
+        void WaitToRotate(float seconds, bool back);
         void Click();
     }
 }

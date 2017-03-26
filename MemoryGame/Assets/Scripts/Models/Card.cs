@@ -28,14 +28,16 @@ namespace Assets.Scripts.Models
             Behavior.Draw(this, x, y, z);
         }
 
-        public void Rotate()
+        public void Rotate(bool back)
         {
-            //Behavior.Draw();
+            Behavior.Rotate(back);
         }
 
         public void Click()
         {
             //Behavior.Draw();
         }
+
+
     }
 }

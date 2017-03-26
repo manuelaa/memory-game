@@ -8,7 +8,7 @@ namespace Assets.Scripts.Interfaces
     public interface ICard
     {
         void Draw(float x, float y, float z);
-        void Rotate();
+        void Rotate(bool back);
         void Click();
     }
     

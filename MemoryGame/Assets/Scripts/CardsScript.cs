@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections;
 using Assets.Scripts.Models;
 using UnityEngine.EventSystems;
@@ -35,6 +36,9 @@ public class CardsScript : MonoBehaviour
 
         Button btn = Instantiate(ButtonPrefab) as Button;
         btn.transform.position = new Vector3(x, y, z);
+        var sprite = Resources.Load<Sprite>("cardBackground");
+        UnityEngine.Debug.Log(sprite);
+        btn.image.sprite = Resources.Load<Sprite>("cardBackground");
         btn.onClick.AddListener(() => OnClick());
         btn.transform.SetParent(gameObject.transform, false);
         //btn.gameObject.AddComponent("CardScript") as CardsScript;

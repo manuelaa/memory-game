@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class CardsScript : MonoBehaviour
 {
     public Image PrefabImage;
+    public Button ButtonPrefab;
     private MainScript mainScript;
     private Card card;
 
@@ -30,19 +31,22 @@ public class CardsScript : MonoBehaviour
 
     public void DrawCard(Card _card, float x, float y, float z)
     {
-        //Canvas go = (Canvas)GameObject.Find("Cards").GetComponent<Canvas>();
         GameObject gameObject = GameObject.Find("Cards");
-        Image image = Instantiate(PrefabImage) as Image;
-        image.transform.position = new Vector3(x,y,z);
-        image.transform.SetParent(gameObject.transform, false);
+
+        Button btn = Instantiate(ButtonPrefab) as Button;
+        btn.transform.position = new Vector3(x, y, z);
+        btn.onClick.AddListener(() => OnClick());
+        btn.transform.SetParent(gameObject.transform, false);
+        //btn.gameObject.AddComponent("CardScript") as CardsScript;
+
         card = _card;
     }
 
     public void OnClick()
     {
-        Debug.Log("CLICKED");
+        Debug.Log("CLICKED" + card.Name);
         //main. ...
-        
-        Debug.Log(EventSystem.current.currentSelectedGameObject.name);
+
+        //Debug.Log(EventSystem.current.currentSelectedGameObject.name);
     }
 }

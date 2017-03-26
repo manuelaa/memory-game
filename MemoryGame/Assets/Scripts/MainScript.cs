@@ -20,9 +20,9 @@ public class MainScript : MonoBehaviour
 	
 	}
 
-    public void CardChanges()
+    public void CardChanges(int cardId)
     {
-        _game.CardChanges();
+        _game.CardChanges(cardId);
     }
 
     public void PlayerChanges()

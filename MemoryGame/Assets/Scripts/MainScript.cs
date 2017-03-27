@@ -3,6 +3,7 @@ using UnityEngine;
 using System.Collections;
 using Assets.Scripts.Models;
 using Assets.Scripts.Unity;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MainScript : MonoBehaviour
@@ -14,7 +15,11 @@ public class MainScript : MonoBehaviour
     public GameObject btnNo;
     public Text Text;
 
-    
+    public MainScript()
+    {
+        
+    }
+
     // Use this for initialization
     void Start ()
     {
@@ -23,13 +28,16 @@ public class MainScript : MonoBehaviour
 
         WinScreen.SetActive(false);
         RectTransform cardField = (RectTransform)GameObject.Find("Cards").GetComponent(typeof(RectTransform));
-        _game = new Game(new CardUnityBehaviour(), new PlayerUnityBehaviour(),  4, 4, cardField.rect.width, cardField.rect.height);
+        _game = new Game(new CardUnityBehaviour(), new PlayerUnityBehaviour(), MenuScript.PlayersNumber, MenuScript.CardsNumber, cardField.rect.width, cardField.rect.height);
     }
 	
 	// Update is called once per frame
 	void Update () {
-	
-	}
+        if (Input.GetKey(KeyCode.Escape))
+        {
+            SceneManager.LoadScene(0);
+        }
+    }
 
     public void CardChanges(int cardId)
     {

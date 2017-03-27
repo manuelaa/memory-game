@@ -59,7 +59,7 @@ namespace Assets.Scripts.Unity
         {
             //Debug.Log("HERE");
             mainScript.CardChanges(Convert.ToInt32(EventSystem.current.currentSelectedGameObject.name));
-            //Debug.Log(EventSystem.current.currentSelectedGameObject.name);
+            Debug.Log(EventSystem.current.currentSelectedGameObject.name);
         }
 
         public void Rotate(bool back=true, string image= "cardBackground")

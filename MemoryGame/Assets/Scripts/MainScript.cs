@@ -18,8 +18,12 @@ public class MainScript : MonoBehaviour
     // Use this for initialization
     void Start ()
     {
+        // 15 je max karata
+        // 4 je max igrača
+
         WinScreen.SetActive(false);
-        _game = new Game(new CardUnityBehaviour(), new PlayerUnityBehaviour(),  2, 6);
+        RectTransform cardField = (RectTransform)GameObject.Find("Cards").GetComponent(typeof(RectTransform));
+        _game = new Game(new CardUnityBehaviour(), new PlayerUnityBehaviour(),  4, 4, cardField.rect.width, cardField.rect.height);
     }
 	
 	// Update is called once per frame

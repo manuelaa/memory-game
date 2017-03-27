@@ -19,13 +19,19 @@ namespace Assets.Scripts.Models
         private int _numCards = 0;
         private int _cardCounter = 0;
 
+        private float _cardFieldWidth = 0;
+        private float _cardFieldHeight = 0;
+
         private Card card1;
 
-        public Game(ICardBehaviour cardBehaviour, IPlayerBehaviour playerBehaviour, int numPlayers, int numCards)
+        public Game(ICardBehaviour cardBehaviour, IPlayerBehaviour playerBehaviour, int numPlayers, int numCards, float cardFieldWidth, float cardFieldHeight)
         {
             PlayerList = PlayerFactory.GetPlayers(numPlayers, playerBehaviour);
-            CardList = CardFactory.DrawCards();
             _numCards = numCards * 2;
+            CardList = CardFactory.DrawCards(_numCards, cardFieldWidth, cardFieldHeight);
+            _cardFieldWidth = cardFieldWidth;
+            _cardFieldHeight = cardFieldHeight;
+
         }
 
         public void CardChanges(int cardId)

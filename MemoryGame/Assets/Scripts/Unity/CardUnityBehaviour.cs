@@ -41,18 +41,7 @@ namespace Assets.Scripts.Unity
             btn.image.sprite = Resources.Load<Sprite>("cardBackground");
 
             btn.transform.SetParent(gameObject.transform, false);
-
-            //btn.GetComponent<Button>().onClick.AddListener((delegate { OnClick(); }));
-            btn.GetComponent<Button>().onClick.AddListener(() => OnClick());
             buttonName = _card.ID.ToString();
-            //Card = _card;
-        }
-
-        public void OnClick()
-        {
-            //Debug.Log("CLICKED" + Card.Name);
-            //main. ...
-
         }
 
         public void OnPointerClick(PointerEventData eventData)
@@ -62,7 +51,7 @@ namespace Assets.Scripts.Unity
             Debug.Log(EventSystem.current.currentSelectedGameObject.name);
         }
 
-        public void Rotate(bool back=true, string image= "cardBackground")
+        public void Rotate(bool back=true, string image = "cardBackground")
         {
 
             Button btn = (Button)GameObject.Find(buttonName).GetComponent(typeof(Button));
@@ -81,34 +70,12 @@ namespace Assets.Scripts.Unity
             Rotate();
         }
 
-        public void WaitToRotate(float seconds, bool back)
+        public void WaitToRotate(float seconds, bool back, string image)
         {
-            //Invoke("RotateAfterDelay", seconds);
-
-            //TODO: change!
-            //DateTime now = DateTime.Now;
-            //DateTime then = now.AddSeconds(1);
-            //while (then>now)
-            //{
-            //    now = DateTime.Now;
-            //}
-            Rotate(true);
-            
-            //Wait(5, () => {
-            //    Rotate(back);
-            //    Debug.Log("ASDASD");
-            //});
+            Rotate(false, image);
+            GameObject helpGo = GameObject.Find("HelperGameObject");
+            var cardHelperScript = (CardHelperScript)helpGo.GetComponent(typeof(CardHelperScript));
+            cardHelperScript.WaitAndRotate(seconds, buttonName);
         }
-
-        //private void Wait(float seconds, Action action)
-        //{
-        //    StartCoroutine(_wait(seconds, action));
-        //}
-
-        //private IEnumerator _wait(float time, Action callback)
-        //{
-        //    yield return new WaitForSeconds(time);
-        //    callback();
-        //}
     }
 }

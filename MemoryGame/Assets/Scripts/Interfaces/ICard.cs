@@ -9,6 +9,7 @@ namespace Assets.Scripts.Interfaces
     {
         void Draw(float x, float y, float z);
         void Rotate(bool back);
+        void WaitToRotate(float seconds, bool back);
         void Click();
     }
     

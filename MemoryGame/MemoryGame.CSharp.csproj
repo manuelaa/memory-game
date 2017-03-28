@@ -13,11 +13,13 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile></CompilerResponseFile>
+    <CompilerResponseFile>
+    </CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>5.4.2f2</UnityVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <LangVersion Condition=" '$(VisualStudioVersion)' != '10.0' ">4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -72,8 +74,10 @@
     <Compile Include="Assets\Scripts\CardsScript.cs" />
     <Compile Include="Assets\Scripts\Factories\CardFactory.cs" />
     <Compile Include="Assets\Scripts\Factories\PlayerFactory.cs" />
+    <Compile Include="Assets\Scripts\CardHelperScript.cs" />
     <Compile Include="Assets\Scripts\Interfaces\ICard.cs" />
     <Compile Include="Assets\Scripts\Interfaces\ICardBehaviour.cs" />
+    <Compile Include="Assets\Scripts\Interfaces\IGameBehaviour.cs" />
     <Compile Include="Assets\Scripts\Interfaces\IPlayer.cs" />
     <Compile Include="Assets\Scripts\Interfaces\IPlayerBehaviour.cs" />
     <Compile Include="Assets\Scripts\MainScript.cs" />
@@ -85,6 +89,7 @@
     <Compile Include="Assets\Scripts\Models\PlayerEnum.cs" />
     <Compile Include="Assets\Scripts\TestButtonScript.cs" />
     <Compile Include="Assets\Scripts\Unity\CardUnityBehaviour.cs" />
+    <Compile Include="Assets\Scripts\Unity\GameUnityBehaviour.cs" />
     <Compile Include="Assets\Scripts\Unity\PlayerUnityBehaviour.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />

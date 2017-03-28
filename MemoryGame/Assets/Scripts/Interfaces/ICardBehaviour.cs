@@ -11,7 +11,7 @@ namespace Assets.Scripts.Interfaces
     {
         void Draw(Card card, float x, float y, float z);
         void Rotate(bool back, string image);
-        void WaitToRotate(float seconds, bool back);
+        void WaitToRotate(float seconds, bool back, string image);
         void Click();
     }
 }

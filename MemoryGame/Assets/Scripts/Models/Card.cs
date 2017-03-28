@@ -33,6 +33,11 @@ namespace Assets.Scripts.Models
             Behavior.Rotate(back, Code.ToLower());
         }
 
+        public void WaitToRotate(float seconds, bool back)
+        {
+            Behavior.WaitToRotate(seconds, back, Code.ToLower());
+        }
+
         public void Click()
         {
             //Behavior.Draw();

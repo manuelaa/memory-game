@@ -22,10 +22,13 @@ namespace Assets.Scripts.Models
         private float _cardFieldWidth = 0;
         private float _cardFieldHeight = 0;
 
+        private IGameBehaviour GameBehaviour;
+
         private Card card1;
 
-        public Game(ICardBehaviour cardBehaviour, IPlayerBehaviour playerBehaviour, int numPlayers, int numCards, float cardFieldWidth, float cardFieldHeight)
+        public Game(IGameBehaviour gameBehaviour, ICardBehaviour cardBehaviour, IPlayerBehaviour playerBehaviour, int numPlayers, int numCards, float cardFieldWidth, float cardFieldHeight)
         {
+            GameBehaviour = gameBehaviour;
             PlayerList = PlayerFactory.GetPlayers(numPlayers, playerBehaviour);
             _numCards = numCards * 2;
             CardList = CardFactory.DrawCards(_numCards, cardFieldWidth, cardFieldHeight);
@@ -70,9 +73,11 @@ namespace Assets.Scripts.Models
                     card2.Rotate(false);
 
                     UnityEngine.Debug.Log("wrooooooooong");
+                    UnityEngine.Debug.Log(card1.Code);
+                    UnityEngine.Debug.Log(card2.Code);
 
-                    card1.Behavior.WaitToRotate(3f, true);
-                    card2.Behavior.WaitToRotate(3f, true);
+                    card1.WaitToRotate(1f, true);
+                    card2.WaitToRotate(1f, true);
                     PlayerChanges(false);
                     card1 = null;
                 }
@@ -104,6 +109,11 @@ namespace Assets.Scripts.Models
             if (scored)
                 PlayerList[currentPlayer].Score++;
             PlayerList[currentPlayer].Draw();
+        }
+
+        public void Rotate()
+        {
+            GameBehaviour.Rotate();
         }
 
         public bool CheckEnd()

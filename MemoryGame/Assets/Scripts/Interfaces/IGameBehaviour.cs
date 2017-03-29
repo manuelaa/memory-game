@@ -11,6 +11,8 @@ namespace Assets.Scripts.Interfaces
         void Rotate(DegreeEnum degrees);
         void SimpleRotate(int degrees);
         void RotateAndResize(int degrees);
+        void QuickRotateReset();
         void SetOriginalSize();
+        void DeleteCards();
     }
 }

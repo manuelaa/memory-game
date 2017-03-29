@@ -135,56 +135,54 @@ namespace Assets.Scripts.Models
 
         }
 
-    public void RewritePlayerScore(bool scored)
-    {
-        if (scored)
-            PlayerList[_currentPlayer].Score++;
-        PlayerList[_currentPlayer].Draw();
-    }
-
-    public void RotateAndResize()
-    {
-        GameBehaviour.RotateAndResize(90);
-    }
-
-    public void Rotate()
-    {
-        GameBehaviour.Rotate(DegreeEnum.DegreesPlus180);
-    }
-
-    public bool CheckEnd()
-    {
-        //UnityEngine.Debug.Log(_cardCounter);
-
-        return _cardCounter == _numCards;
-    }
-
-    public string GetWinner()
-    {
-
-        var theBest = PlayerList.OrderByDescending(p => p.Score).First();
-        if (PlayerList.Any(x => x.Score == theBest.Score && x.ID != theBest.ID))
-            return "No one";
-        return theBest.Name;
-    }
-
-    public void Reset()
-    {
-        foreach (Card card in CardList)
+        public void RewritePlayerScore(bool scored)
         {
-            card.correct = false;
-            card.Rotate(true);
+            if (scored)
+                PlayerList[_currentPlayer].Score++;
+            PlayerList[_currentPlayer].Draw();
         }
 
-        foreach (Player player in PlayerList)
+        public void RotateAndResize()
         {
-            player.Score = 0;
-            player.Draw();
+            GameBehaviour.RotateAndResize(90);
         }
 
-        _cardCounter = 0;
-        _currentPlayer = 0;
-    }
+        public void Rotate()
+        {
+            GameBehaviour.Rotate(DegreeEnum.DegreesPlus180);
+        }
 
-}
+        public bool CheckEnd()
+        {
+            //UnityEngine.Debug.Log(_cardCounter);
+
+            return _cardCounter == _numCards;
+        }
+
+        public string GetWinner()
+        {
+
+            var theBest = PlayerList.OrderByDescending(p => p.Score).First();
+            if (PlayerList.Any(x => x.Score == theBest.Score && x.ID != theBest.ID))
+                return "No one";
+            return theBest.Name;
+        }
+
+        public void Reset()
+        {
+            GameBehaviour.DeleteCards();
+            GameBehaviour.QuickRotateReset();
+            CardList = CardFactory.DrawCards(_numCards, _cardFieldWidth, _cardFieldHeight);
+            
+            foreach (Player player in PlayerList)
+            {
+                player.Score = 0;
+                player.Draw();
+            }
+
+            _cardCounter = 0;
+            _currentPlayer = 0;
+        }
+
+    }
 }

@@ -6,6 +6,7 @@ using System.Text;
 using Assets.Scripts.Interfaces;
 using Assets.Scripts.Models;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Assets.Scripts.Unity
 {
@@ -36,6 +37,11 @@ namespace Assets.Scripts.Unity
             }
         }
 
+        public void QuickRotateReset()
+        {
+            var cardField = (RectTransform)GameObject.Find("Cards").GetComponent(typeof(RectTransform));
+            cardField.transform.eulerAngles = new Vector3(0, 0, 0);
+        }
 
         public void SimpleRotate(int degrees)
         {
@@ -55,5 +61,12 @@ namespace Assets.Scripts.Unity
             gameHelperScript.SetOriginalSize();
         }
 
+        public void DeleteCards()
+        {
+            var cards = GameObject.Find("Cards");//getch(typeof (Button));
+
+            foreach (Transform child in cards.transform)
+                Destroy(child.gameObject);
+        }
     }
 }

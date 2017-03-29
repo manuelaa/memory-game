@@ -49,7 +49,7 @@ public class MainScript : MonoBehaviour
         if (_game.CheckEnd())
         {
             WinScreen.SetActive(true);
-            Text.text = _game.GetWinner() + " is winner! \nContinue?";
+            Text.text = "Winner is ..." + _game.GetWinner() + "! \nDo You want to continue?";
         }
 
     }
@@ -68,10 +68,10 @@ public class MainScript : MonoBehaviour
 
     public void Rotate()
     {
-        //RectTransform cardField = (RectTransform)GameObject.Find("Cards").GetComponent(typeof(RectTransform));
+        RectTransform cardField = (RectTransform)GameObject.Find("Cards").GetComponent(typeof(RectTransform));
         //cardField.transform.eulerAngles = new Vector3(0, 0, 90);
 
-        GameObject cardField = GameObject.Find("Cards");
+        //GameObject cardField = GameObject.Find("Cards");
 
         currentRotation = cardField.transform.eulerAngles;
         targetRotation.z = (currentRotation.z + (90 * rotationDirection));
@@ -96,18 +96,18 @@ public class MainScript : MonoBehaviour
             gameObject.transform.eulerAngles = targetRotation;
         }
     }
-
-    IEnumerator rotateObjectAgain()
-    {
-        yield return new WaitForSeconds(0.2f);
-        Rotate();
-    }
-
+    
     public void Exit()
     {
         Debug.Log("QUIT");
 
         Application.Quit();
     }
+
+    public void BackToMenu()
+    {
+        SceneManager.LoadScene(0);
+    }
+
 
 }

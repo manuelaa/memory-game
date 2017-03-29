@@ -35,6 +35,11 @@ namespace Assets.Scripts.Factories
             dict.Add(13, "threeteen");
             dict.Add(14, "fourteen");
             dict.Add(15, "fifteen");
+            dict.Add(16, "sixteen");
+            dict.Add(17, "seventeen");
+            dict.Add(18, "eighteen");
+            dict.Add(19, "nineteen");
+            dict.Add(20, "twenty");
 
             List<Card> Cards = new List<Card>();
 

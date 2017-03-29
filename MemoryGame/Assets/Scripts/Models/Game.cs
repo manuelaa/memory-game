@@ -34,6 +34,8 @@ namespace Assets.Scripts.Models
             CardList = CardFactory.DrawCards(_numCards, cardFieldWidth, cardFieldHeight);
             _cardFieldWidth = cardFieldWidth;
             _cardFieldHeight = cardFieldHeight;
+            
+            GameBehaviour.SetOriginalSize();
 
         }
 
@@ -111,9 +113,14 @@ namespace Assets.Scripts.Models
             PlayerList[currentPlayer].Draw();
         }
 
+        public void RotateAndResize()
+        {
+            GameBehaviour.RotateAndResize(90);
+        }
+
         public void Rotate()
         {
-            GameBehaviour.Rotate();
+            GameBehaviour.Rotate(180);
         }
 
         public bool CheckEnd()

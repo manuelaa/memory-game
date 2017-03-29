@@ -7,6 +7,8 @@ namespace Assets.Scripts.Interfaces
 {
     public interface IGameBehaviour
     {
-        void Rotate();
+        void Rotate(int degrees);
+        void RotateAndResize(int degrees);
+        void SetOriginalSize();
     }
 }

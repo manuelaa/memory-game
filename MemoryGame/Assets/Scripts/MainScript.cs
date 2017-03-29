@@ -60,43 +60,6 @@ public class MainScript : MonoBehaviour
         WinScreen.SetActive(false);
     }
 
-    public int rotationDirection = -1; // -1 for clockwise, 1 for anti-clockwise
-    public int rotationStep = 10;
-
-    private Vector3 currentRotation, targetRotation;
-
-
-    public void Rotate()
-    {
-        RectTransform cardField = (RectTransform)GameObject.Find("Cards").GetComponent(typeof(RectTransform));
-        //cardField.transform.eulerAngles = new Vector3(0, 0, 90);
-
-        //GameObject cardField = GameObject.Find("Cards");
-
-        currentRotation = cardField.transform.eulerAngles;
-        targetRotation.z = (currentRotation.z + (90 * rotationDirection));
-        StartCoroutine(objectRotationAnimation());
-
-    }
-
-    IEnumerator objectRotationAnimation()
-    {
-        // add rotation step to current rotation.
-        currentRotation.z += (rotationStep * rotationDirection);
-        gameObject.transform.eulerAngles = currentRotation;
-        yield return new WaitForSeconds(5);
-        if (((int)currentRotation.z >
-        (int)targetRotation.z && rotationDirection < 0) || // for clockwise
-        ((int)currentRotation.z < (int)targetRotation.z && rotationDirection > 0)) // for anti-clockwise
-        {
-            StartCoroutine(objectRotationAnimation());
-        }
-        else
-        {
-            gameObject.transform.eulerAngles = targetRotation;
-        }
-    }
-    
     public void Exit()
     {
         Debug.Log("QUIT");
@@ -107,6 +70,16 @@ public class MainScript : MonoBehaviour
     public void BackToMenu()
     {
         SceneManager.LoadScene(0);
+    }
+
+    public void CLickRotate()
+    {
+        _game.Rotate();
+    }
+
+    public void CLickResizeAndRotate()
+    {
+        _game.RotateAndResize();
     }
 
 

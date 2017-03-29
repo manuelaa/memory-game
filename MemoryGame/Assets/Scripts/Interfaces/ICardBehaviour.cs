@@ -13,5 +13,6 @@ namespace Assets.Scripts.Interfaces
         void Rotate(bool back, string image);
         void WaitToRotate(float seconds, bool back, string image);
         void Click();
+        string GetButtonName();
     }
 }

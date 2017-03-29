@@ -15,7 +15,7 @@ namespace Assets.Scripts.Unity
     {
         //private Card Card;
         private MainScript mainScript;
-        private string buttonName = "";
+        public string buttonName = "";
 
         void Start()
         {
@@ -36,7 +36,6 @@ namespace Assets.Scripts.Unity
             Button btn = Instantiate(buttonPrefab);
             btn.transform.position = new Vector3(x, y, z);
             btn.name = _card.ID.ToString();
-            //btn.onClick.AddListener(() => OnClick());
 
             btn.image.sprite = Resources.Load<Sprite>("cardBackground");
 
@@ -54,28 +53,35 @@ namespace Assets.Scripts.Unity
         public void Rotate(bool back=true, string image = "cardBackground")
         {
 
-            Button btn = (Button)GameObject.Find(buttonName).GetComponent(typeof(Button));
+            GameObject helpGo = GameObject.Find("HelperGameObject");
+            var cardHelperScript = (CardHelperScript)helpGo.GetComponent(typeof(CardHelperScript));
+
+
+            //Button btn = (Button)GameObject.Find(buttonName).GetComponent(typeof(Button));
             if (!back)
             {
-                btn.image.sprite = Resources.Load<Sprite>("CardImages/" + image);
+                //btn.image.sprite = Resources.Load<Sprite>("CardImages/" + image);
+                cardHelperScript.Rotate(buttonName, "CardImages/" + image);
             }
             else
             {
-                btn.image.sprite = Resources.Load<Sprite>("cardBackground");
+                //btn.image.sprite = Resources.Load<Sprite>("cardBackground");
+                cardHelperScript.Rotate(buttonName, "cardBackground");
             }
-        }
 
-        private void RotateAfterDelay()
-        {
-            Rotate();
         }
 
         public void WaitToRotate(float seconds, bool back, string image)
         {
-            Rotate(false, image);
+            //Rotate(false, image);
             GameObject helpGo = GameObject.Find("HelperGameObject");
             var cardHelperScript = (CardHelperScript)helpGo.GetComponent(typeof(CardHelperScript));
             cardHelperScript.WaitAndRotate(seconds, buttonName);
+        }
+
+        public string GetButtonName()
+        {
+            return buttonName;
         }
     }
 }

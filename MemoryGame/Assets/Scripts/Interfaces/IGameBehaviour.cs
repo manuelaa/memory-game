@@ -8,5 +8,6 @@ namespace Assets.Scripts.Interfaces
     public interface IGameBehaviour
     {
         void Rotate();
+        void RotateConsequently(float seconds, string buttonName1, string buttonName2);
     }
 }

@@ -70,14 +70,16 @@ namespace Assets.Scripts.Models
                 }
                 else
                 {
-                    card2.Rotate(false);
+                    //card2.Rotate(false);
 
                     UnityEngine.Debug.Log("wrooooooooong");
-                    UnityEngine.Debug.Log(card1.Code);
-                    UnityEngine.Debug.Log(card2.Code);
+                    //UnityEngine.Debug.Log(card1.Code);
+                    //UnityEngine.Debug.Log(card2.Code);
+                     
+                    GameBehaviour.RotateConsequently(0.5f,card2.Behavior.GetButtonName(), card1.Behavior.GetButtonName());
 
-                    card1.WaitToRotate(1f, true);
-                    card2.WaitToRotate(1f, true);
+                    //card1.WaitToRotate(2f, true);
+                    //card2.WaitToRotate(2f, true);
                     PlayerChanges(false);
                     card1 = null;
                 }

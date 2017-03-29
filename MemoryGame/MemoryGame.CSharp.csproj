@@ -75,6 +75,7 @@
     <Compile Include="Assets\Scripts\Factories\CardFactory.cs" />
     <Compile Include="Assets\Scripts\Factories\PlayerFactory.cs" />
     <Compile Include="Assets\Scripts\CardHelperScript.cs" />
+    <Compile Include="Assets\Scripts\GameHelperScript.cs" />
     <Compile Include="Assets\Scripts\Interfaces\ICard.cs" />
     <Compile Include="Assets\Scripts\Interfaces\ICardBehaviour.cs" />
     <Compile Include="Assets\Scripts\Interfaces\IGameBehaviour.cs" />

@@ -8,6 +8,7 @@ public class MenuScript : MonoBehaviour
 {
     public static int PlayersNumber = 0;
     public static int CardsNumber = 0;
+    public static bool RotationAllowed = true;
 
     private const int PlayersNumberMin = 2;
     private const int PlayersNumberMax = 4;
@@ -16,6 +17,7 @@ public class MenuScript : MonoBehaviour
 
     public Dropdown playersDropdown;
     public Dropdown cardsDropdown;
+    public Toggle rotationToggle;
 
     // Use this for initialization
     void Start () {
@@ -51,6 +53,11 @@ public class MenuScript : MonoBehaviour
     public void CardsDropdownValueChanged()
     {
         CardsNumber = Convert.ToInt32(cardsDropdown.options[cardsDropdown.value].text);
+    }
+
+    public void RotationToggleValueChanged()
+    {
+        RotationAllowed = rotationToggle.isOn;
     }
 
     public void StartGame()

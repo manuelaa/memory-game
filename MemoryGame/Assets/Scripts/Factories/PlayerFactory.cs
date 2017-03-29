@@ -16,15 +16,32 @@ namespace Assets.Scripts.Factories
 
             for (int i = 1; i <= num; i++)
             {
-                Players.Add(new Player(i, "Player"+i.ToString(), _behaviour, (PlayerEnum)i));
+                Players.Add(new Player(i, "Player" + i.ToString(), _behaviour, (PlayerEnum)i));
             }
 
-            for (int i = num+1; i <= 4; i++)
+            for (int i = num + 1; i <= 4; i++)
             {
                 PlayerUnityBehaviour.HideName((PlayerEnum)i);
             }
 
             return Players;
+        }
+
+        public static int GetDegreeForPlayer(PlayerEnum player)
+        {
+            switch (player)
+            {
+                case PlayerEnum.Player1:
+                    return 0;
+                case PlayerEnum.Player2:
+                    return 180;
+                case PlayerEnum.Player3:
+                    return 90;
+                //case PlayerEnum.Player4:
+                default:
+                    return 270;
+
+            }
         }
     }
 }

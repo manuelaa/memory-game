@@ -24,5 +24,6 @@ namespace Assets.Scripts.Unity
         {
             GameObject.Find(num.ToString()).SetActive(false);
         }
+        
     }
 }

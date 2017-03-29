@@ -28,10 +28,11 @@ public class MainScript : MonoBehaviour
 
         var playersNumber = MenuScript.PlayersNumber == 0 ? 4 : MenuScript.PlayersNumber;
         var cardsNumber = MenuScript.CardsNumber == 0 ? 15 : MenuScript.CardsNumber;
+        var rotationAllowed = MenuScript.RotationAllowed;
 
         WinScreen.SetActive(false);
         RectTransform cardField = (RectTransform)GameObject.Find("Cards").GetComponent(typeof(RectTransform));
-        _game = new Game(new GameUnityBehaviour(), new CardUnityBehaviour(), new PlayerUnityBehaviour(), playersNumber, cardsNumber, cardField.rect.width, cardField.rect.height);
+        _game = new Game(new GameUnityBehaviour(), new CardUnityBehaviour(), new PlayerUnityBehaviour(), playersNumber, cardsNumber, rotationAllowed, cardField.rect.width, cardField.rect.height);
     }
 	
 	// Update is called once per frame

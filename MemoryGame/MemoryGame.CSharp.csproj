@@ -84,6 +84,8 @@
     <Compile Include="Assets\Scripts\MainScript.cs" />
     <Compile Include="Assets\Scripts\MenuScript.cs" />
     <Compile Include="Assets\Scripts\Models\Card.cs" />
+    <Compile Include="Assets\Scripts\Models\DegreeEnum.cs" />
+    <Compile Include="Assets\Scripts\Models\DegreeKey.cs" />
     <Compile Include="Assets\Scripts\Models\ExtensionModel.cs" />
     <Compile Include="Assets\Scripts\Models\Game.cs" />
     <Compile Include="Assets\Scripts\Models\Player.cs" />

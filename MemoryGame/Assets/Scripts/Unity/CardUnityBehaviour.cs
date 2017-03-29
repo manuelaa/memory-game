@@ -65,11 +65,6 @@ namespace Assets.Scripts.Unity
             }
         }
 
-        private void RotateAfterDelay()
-        {
-            Rotate();
-        }
-
         public void WaitToRotate(float seconds, bool back, string image)
         {
             Rotate(false, image);

@@ -14,10 +14,15 @@ namespace Assets.Scripts.Models
         List<Card> CardList;
         List<Player> PlayerList;
 
-        private int currentPlayer = 0;
+        Dictionary<string, DegreeEnum> degrees = new Dictionary<string, DegreeEnum>();
+
+        private int _currentPlayer = 0;
+        private int _currentDegree = 0;
 
         private int _numCards = 0;
         private int _cardCounter = 0;
+
+        private bool _rotationAllowed = true;
 
         private float _cardFieldWidth = 0;
         private float _cardFieldHeight = 0;
@@ -26,26 +31,42 @@ namespace Assets.Scripts.Models
 
         private Card card1;
 
-        public Game(IGameBehaviour gameBehaviour, ICardBehaviour cardBehaviour, IPlayerBehaviour playerBehaviour, int numPlayers, int numCards, float cardFieldWidth, float cardFieldHeight)
+        public Game(IGameBehaviour gameBehaviour, ICardBehaviour cardBehaviour, IPlayerBehaviour playerBehaviour, int numPlayers, int numCards, bool rotationAllowed, float cardFieldWidth, float cardFieldHeight)
         {
             GameBehaviour = gameBehaviour;
             PlayerList = PlayerFactory.GetPlayers(numPlayers, playerBehaviour);
+            InitDegrees();
+
             _numCards = numCards * 2;
             CardList = CardFactory.DrawCards(_numCards, cardFieldWidth, cardFieldHeight);
             _cardFieldWidth = cardFieldWidth;
             _cardFieldHeight = cardFieldHeight;
-            
+            _currentDegree = 0;
+
+            _rotationAllowed = rotationAllowed;
+
             GameBehaviour.SetOriginalSize();
+
+        }
+
+        public void InitDegrees()
+        {
+            degrees.Add("1_2", DegreeEnum.DegreesPlus180);
+            degrees.Add("2_1", DegreeEnum.DegreesPlus180);
+            degrees.Add("2_3", DegreeEnum.DegreesPlus90);
+            degrees.Add("3_1", DegreeEnum.DegreesPlus90);
+            degrees.Add("3_4", DegreeEnum.DegreesPlus180);
+            degrees.Add("4_1", DegreeEnum.DegreesPlus270);
 
         }
 
         public void CardChanges(int cardId)
         {
             var card = CardList.First(x => x.ID == cardId);
-            if(card.correct)
+            if (card.correct)
                 return; //ignore click
 
-            if (card1 != null )
+            if (card1 != null)
             {
                 //drugo klikanje
                 var card2 = card;
@@ -96,66 +117,74 @@ namespace Assets.Scripts.Models
         public void PlayerChanges(bool scored)
         {
             RewritePlayerScore(scored);
-
-            // ako nije pogodio onda se igrac ne mijenja, ali se svejedno azuriraju  bodovi
+            int oldPlayer = _currentPlayer;
+            // ako nije pogodio onda se igrac mijenja, ali se svejedno azuriraju  bodovi
             if (!scored)
             {
-                currentPlayer++;
-                if (currentPlayer == PlayerList.Count)
-                    currentPlayer = 0;
-            }
-        }
+                _currentPlayer++;
+                if (_currentPlayer == PlayerList.Count)
+                    _currentPlayer = 0;
 
-        public void RewritePlayerScore(bool scored)
-        {
-            if (scored)
-                PlayerList[currentPlayer].Score++;
-            PlayerList[currentPlayer].Draw();
-        }
-
-        public void RotateAndResize()
-        {
-            GameBehaviour.RotateAndResize(90);
-        }
-
-        public void Rotate()
-        {
-            GameBehaviour.Rotate(180);
-        }
-
-        public bool CheckEnd()
-        {
-            //UnityEngine.Debug.Log(_cardCounter);
-
-            return _cardCounter == _numCards;
-        }
-
-        public string GetWinner()
-        {
-
-            var theBest = PlayerList.OrderByDescending(p => p.Score).First();
-            if (PlayerList.Any(x => x.Score == theBest.Score && x.ID != theBest.ID))
-                return "No one";
-            return theBest.Name;
-        }
-
-        public void Reset()
-        {
-            foreach (Card card in CardList)
-            {
-                card.correct = false;
-                card.Rotate(true);
+                if (_rotationAllowed)
+                {
+                    var key = (oldPlayer + 1).ToString() + '_' + (_currentPlayer + 1).ToString();
+                    var degree = degrees[key];
+                    GameBehaviour.Rotate(degree);
+                }
             }
 
-            foreach (Player player in PlayerList)
-            {
-                player.Score = 0;
-                player.Draw();
-            }
-
-            _cardCounter = 0;
-            currentPlayer = 0;
         }
 
+    public void RewritePlayerScore(bool scored)
+    {
+        if (scored)
+            PlayerList[_currentPlayer].Score++;
+        PlayerList[_currentPlayer].Draw();
     }
+
+    public void RotateAndResize()
+    {
+        GameBehaviour.RotateAndResize(90);
+    }
+
+    public void Rotate()
+    {
+        GameBehaviour.Rotate(DegreeEnum.DegreesPlus180);
+    }
+
+    public bool CheckEnd()
+    {
+        //UnityEngine.Debug.Log(_cardCounter);
+
+        return _cardCounter == _numCards;
+    }
+
+    public string GetWinner()
+    {
+
+        var theBest = PlayerList.OrderByDescending(p => p.Score).First();
+        if (PlayerList.Any(x => x.Score == theBest.Score && x.ID != theBest.ID))
+            return "No one";
+        return theBest.Name;
+    }
+
+    public void Reset()
+    {
+        foreach (Card card in CardList)
+        {
+            card.correct = false;
+            card.Rotate(true);
+        }
+
+        foreach (Player player in PlayerList)
+        {
+            player.Score = 0;
+            player.Draw();
+        }
+
+        _cardCounter = 0;
+        _currentPlayer = 0;
+    }
+
+}
 }

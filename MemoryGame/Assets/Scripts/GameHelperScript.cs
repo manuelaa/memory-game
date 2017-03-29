@@ -41,6 +41,7 @@ namespace Assets.Scripts
 
             currentRotation = cardField.transform.eulerAngles;
             targetRotation.z = (currentRotation.z + (degree * rotationDirection));
+            //yield return new WaitForSeconds(3);
             StartCoroutine(ObjectRotationAnimation());
 
         }

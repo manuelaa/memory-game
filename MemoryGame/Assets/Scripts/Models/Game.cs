@@ -35,8 +35,9 @@ namespace Assets.Scripts.Models
         {
             GameBehaviour = gameBehaviour;
             PlayerList = PlayerFactory.GetPlayers(numPlayers, playerBehaviour);
+            ChangeColourCurrentPlayer(ColorEnum.Yellow);
+            
             InitDegrees();
-
             _numCards = numCards * 2;
             CardList = CardFactory.DrawCards(_numCards, cardFieldWidth, cardFieldHeight);
             _cardFieldWidth = cardFieldWidth;
@@ -46,6 +47,8 @@ namespace Assets.Scripts.Models
             _rotationAllowed = rotationAllowed;
 
             GameBehaviour.SetOriginalSize();
+
+
 
         }
 
@@ -118,12 +121,16 @@ namespace Assets.Scripts.Models
         {
             RewritePlayerScore(scored);
             int oldPlayer = _currentPlayer;
-            // ako nije pogodio onda se igrac mijenja, ali se svejedno azuriraju  bodovi
+            // ako nije pogodio onda se igrac mijenja, i azuriraju se bodovi
             if (!scored)
             {
+                ChangeColourCurrentPlayer(ColorEnum.White);
+
                 _currentPlayer++;
                 if (_currentPlayer == PlayerList.Count)
                     _currentPlayer = 0;
+
+                ChangeColourCurrentPlayer(ColorEnum.Yellow);
 
                 if (_rotationAllowed)
                 {
@@ -132,7 +139,12 @@ namespace Assets.Scripts.Models
                     GameBehaviour.Rotate(degree);
                 }
             }
+        }
 
+        public void ChangeColourCurrentPlayer(ColorEnum color)
+        {
+            var current = PlayerList[_currentPlayer];
+            current.Behaviour.ChangeNameColour(current.PlayerNum, color);
         }
 
         public void RewritePlayerScore(bool scored)

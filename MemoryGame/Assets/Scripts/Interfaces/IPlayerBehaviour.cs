@@ -9,5 +9,6 @@ namespace Assets.Scripts.Interfaces
     public interface IPlayerBehaviour
     {
         void DrawName(PlayerEnum num, string name, int score);
+        void ChangeNameColour(PlayerEnum num, ColorEnum color);
     }
 }

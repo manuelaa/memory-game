@@ -15,15 +15,32 @@ namespace Assets.Scripts.Unity
         {
             GameObject.Find(num.ToString());
             Text text = (Text)GameObject.Find(num.ToString()).GetComponent<Text>();
-            
+
             text.text = name + ", " + score.ToString();
-            
+
+        }
+
+        public void ChangeNameColour(PlayerEnum num, ColorEnum color)
+        {
+            Text text = (Text)GameObject.Find(num.ToString()).GetComponent<Text>();
+
+            switch (color)
+            {
+                case ColorEnum.Yellow:
+                    text.color = Color.yellow;
+                    text.fontStyle = FontStyle.Bold;
+                    break;
+                default:
+                    text.color = Color.white;
+                    text.fontStyle = FontStyle.Normal;
+                    break;
+            }
         }
 
         public static void HideName(PlayerEnum num)
         {
             GameObject.Find(num.ToString()).SetActive(false);
         }
-        
+
     }
 }

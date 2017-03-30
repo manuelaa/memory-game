@@ -27,7 +27,7 @@ public class MainScript : MonoBehaviour
         // 4 je max igrača
 
         var playersNumber = MenuScript.PlayersNumber == 0 ? 4 : MenuScript.PlayersNumber;
-        var cardsNumber = MenuScript.CardsNumber == 0 ? 15 : MenuScript.CardsNumber;
+        var cardsNumber = MenuScript.CardsNumber == 0 ? 20 : MenuScript.CardsNumber;
         var rotationAllowed = MenuScript.RotationAllowed;
 
         WinScreen.SetActive(false);

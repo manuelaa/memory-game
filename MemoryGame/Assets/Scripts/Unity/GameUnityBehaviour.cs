@@ -68,5 +68,17 @@ namespace Assets.Scripts.Unity
             foreach (Transform child in cards.transform)
                 Destroy(child.gameObject);
         }
+
+        public void UpdateSizeOfTable()
+        {
+            GameObject go = GameObject.Find("Cards");
+            RectTransform cardField = (RectTransform)go.GetComponent(typeof(RectTransform));
+            var originalSize = cardField.rect;
+
+            RectTransform card = (RectTransform)go.GetComponent(typeof(RectTransform));
+            var originalCardSize = cardField.rect;
+            
+            //cardField.transform.localScale = new Vector3(width / originalSize.width, 1);
+        }
     }
 }

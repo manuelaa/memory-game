@@ -23,9 +23,9 @@ namespace Assets.Scripts.Models
             correct = false;
         }
 
-        public void Draw(float x, float y, float z)
+        public void Draw(float x, float y, float z, float width, float height)
         {
-            Behavior.Draw(this, x, y, z);
+            Behavior.Draw(this, x, y, z, width, height);
         }
 
         public void Rotate(bool back)

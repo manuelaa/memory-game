@@ -5,6 +5,7 @@ using System.Text;
 using Assets.Scripts.Interfaces;
 using Assets.Scripts.Models;
 using Assets.Scripts.Unity;
+using UnityEngine;
 
 namespace Assets.Scripts.Factories
 {
@@ -12,13 +13,15 @@ namespace Assets.Scripts.Factories
     {
         private const float cardX = 60;
         private const float cardY = 83;
-        private const float cardSpace = 15;
+
+        private const float MaxCardX = 80;
+        private const float MaxCardY = 111;
+
+        private const float cardSpace = 20;
 
         // init script
         private static List<Card> GetCards(int numCards)
         {
-            //TODO: do it right
-
             Dictionary<int, string> dict = new Dictionary<int, string>();
             dict.Add(1, "one");
             dict.Add(2, "two");
@@ -54,13 +57,33 @@ namespace Assets.Scripts.Factories
 
             return Cards;
         }
+        
 
         public static List<Card> DrawCards(int numCards, float cardFieldX, float cardFieldY)
         {
             List<Card> cards = GetCards(numCards);
             cards.Shuffle();
 
+            double Y = cardFieldX / cardFieldY;
+            double lower = Math.Ceiling(Math.Sqrt(numCards / Y));
+
+            double upper = Math.Ceiling(numCards / lower);
+
+
+            int numY = (int)lower;
+            int numX = (int)upper;
             
+            float c = 0;
+
+            if ((cardFieldY - (numY * cardY + (numY - 1) * cardSpace)) < 0)
+            {
+                c = -(cardFieldY - numY * cardY - (numY+1)*cardSpace)/(2*numY+1);
+            }
+            else if ((cardFieldX - (numX * cardX + (numX - 1) * cardSpace)) < 0)
+            {
+                c = -(cardFieldX - numX * cardX - (numX + 1) * cardSpace) / (2 * numX + 1);
+            }
+
 
             //foreach (Card card in cards)
             //{
@@ -68,43 +91,47 @@ namespace Assets.Scripts.Factories
             //    x += 60 + 30;
             //}
 
-            int numX = 0;
-            int numY = numCards;
+            //int numX = 0;
+            //int numY = numCards;
 
-            int tempNumX = numX;
-            //int tempNumY = numY;
+            //int tempNumX = numX;
+            ////int tempNumY = numY;
 
 
-            while ((tempNumX + 1) <= (numY))
-            {
-                tempNumX++;
-                if (numCards % tempNumX == 0)
-                {
-                    numX = tempNumX;
-                    numY = numCards / tempNumX;
-                }
+            //while ((tempNumX + 1) <= (numY))
+            //{
+            //    tempNumX++;
+            //    if (numCards % tempNumX == 0)
+            //    {
+            //        numX = tempNumX;
+            //        numY = numCards / tempNumX;
+            //    }
 
-                if (tempNumX == 3 && numCards % tempNumX != 0)
-                {
-                    numX = tempNumX;
-                    numY = numCards/tempNumX + 1;
-                    break;
-                }
-                else if (tempNumX == 3)
-                {
-                    break;
-                }
-            }
+            //    if (tempNumX == 3 && numCards % tempNumX != 0)
+            //    {
+            //        numX = tempNumX;
+            //        numY = numCards/tempNumX + 1;
+            //        break;
+            //    }
+            //    else if (tempNumX == 3)
+            //    {
+            //        break;
+            //    }
+            //}
 
-            if (numX < numY)
-            {
-                tempNumX = numX;
-                numX = numY;
-                numY = tempNumX;
-            }
+            //if (numX < numY)
+            //{
+            //    tempNumX = numX;
+            //    numX = numY;
+            //    numY = tempNumX;
+            //}
 
-            float firstPointX = (cardFieldX - (numX*cardX + (numX - 1)*cardSpace))/2;
-            float firstPointY = -(cardFieldY - (numY * cardY + (numY - 1) * cardSpace)) / 2;
+            var computedCardX = cardX-c;
+            var computedCardY = cardY-c;
+            var computedSpace = cardSpace-c;
+
+            float firstPointX = (cardFieldX - (numX * computedCardX + (numX - 1) * computedSpace)) / 2;
+            float firstPointY = -(cardFieldY - (numY * computedCardY + (numY - 1) * computedSpace)) / 2;
             float firstPointZ = 0;
 
             int cardNum = 0;
@@ -114,30 +141,15 @@ namespace Assets.Scripts.Factories
                 {
                     if (cardNum < cards.Count)
                     {
-                        cards[cardNum].Draw(firstPointX, firstPointY, firstPointZ);
-                        firstPointX += cardX + cardSpace;
+                        cards[cardNum].Draw(firstPointX, firstPointY, firstPointZ, computedCardX, computedCardY);
+                        firstPointX += computedCardX + computedSpace;
                         cardNum++;
                     }
                 }
-                firstPointX = (cardFieldX - (numX * cardX + (numX - 1) * cardSpace)) / 2;
-                firstPointY -= cardY + cardSpace;
+                firstPointX = (cardFieldX - (numX * computedCardX + (numX - 1) * computedSpace)) / 2;
+                firstPointY -= computedCardY + computedSpace;
             }
-
-            //int x = 120;
-            //int y = 0;
-            //int z = 0;
-            //for (int i = 0; i < 2; i++)
-            //{
-            //    for (int j = 0; j < 6; j++)
-            //    {
-            //        cards[cardNum].Draw(x, y, z);
-            //        x += 60 + 40;
-            //        cardNum++;
-            //    }
-            //    x = 120;
-            //    y = -83 - 40;
-            //}
-
+            
             return cards;
         }
     }

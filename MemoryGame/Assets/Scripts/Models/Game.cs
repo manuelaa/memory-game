@@ -40,6 +40,9 @@ namespace Assets.Scripts.Models
             InitDegrees();
             _numCards = numCards * 2;
             CardList = CardFactory.DrawCards(_numCards, cardFieldWidth, cardFieldHeight);
+
+            GameBehaviour.UpdateSizeOfTable();
+
             _cardFieldWidth = cardFieldWidth;
             _cardFieldHeight = cardFieldHeight;
             _currentDegree = 0;

@@ -14,5 +14,6 @@ namespace Assets.Scripts.Interfaces
         void QuickRotateReset();
         void SetOriginalSize();
         void DeleteCards();
+        void UpdateSizeOfTable();
     }
 }

@@ -28,13 +28,18 @@ namespace Assets.Scripts.Unity
             throw new NotImplementedException();
         }
 
-        public void Draw(Card _card, float x, float y, float z)
+        public void Draw(Card _card, float x, float y, float z, float width, float height)
         {
             GameObject gameObject = GameObject.Find("Cards");
             Button buttonPrefab = (Button)GameObject.Find("CardPrefab").GetComponent(typeof(Button));
-
+            RectTransform cardField = (RectTransform)GameObject.Find("CardPrefab").GetComponent(typeof(RectTransform));
+            var originalSize = cardField.rect;
+            cardField.transform.localScale = new Vector3(width / originalSize.width, height / originalSize.height);
+            
             Button btn = Instantiate(buttonPrefab);
             btn.transform.position = new Vector3(x, y, z);
+
+
             btn.name = _card.ID.ToString();
             //btn.onClick.AddListener(() => OnClick());
 
@@ -51,7 +56,7 @@ namespace Assets.Scripts.Unity
             Debug.Log(EventSystem.current.currentSelectedGameObject.name);
         }
 
-        public void Rotate(bool back=true, string image = "cardBackground")
+        public void Rotate(bool back = true, string image = "cardBackground")
         {
 
             Button btn = (Button)GameObject.Find(buttonName).GetComponent(typeof(Button));

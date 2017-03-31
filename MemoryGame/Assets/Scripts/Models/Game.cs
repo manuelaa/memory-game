@@ -198,6 +198,12 @@ namespace Assets.Scripts.Models
 
             _cardCounter = 0;
             _currentPlayer = 0;
+
+            GameBehaviour.UpdateSizeOfTable(CardFactory.currentNumX, CardFactory.currentNumY, CardFactory.currentCardX, CardFactory.currentCardY, CardFactory.currentCardSpace);
+            
+
+            GameBehaviour.SetOriginalSize();
+
         }
 
     }

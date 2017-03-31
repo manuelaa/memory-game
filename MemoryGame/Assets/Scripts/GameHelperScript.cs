@@ -10,7 +10,7 @@ namespace Assets.Scripts
 {
     public class GameHelperScript : MonoBehaviour
     {
-
+        private const float SecondsBeforeRotation = 1.5f;
 
         private int rotationDirection = -1; // -1 for clockwise, 1 for anti-clockwise
         private int rotationStep = 10;
@@ -48,8 +48,15 @@ namespace Assets.Scripts
             currentRotation = cardField.transform.eulerAngles;
             targetRotation.z = (currentRotation.z + (degree * rotationDirection));
             //yield return new WaitForSeconds(3);
-            StartCoroutine(ObjectRotationAnimation());
+            //StartCoroutine(ObjectRotationAnimation());
+            StartCoroutine(StartRotation());
 
+        }
+
+        IEnumerator StartRotation()
+        {
+            yield return new WaitForSeconds(SecondsBeforeRotation);
+            StartCoroutine(ObjectRotationAnimation());
         }
 
         IEnumerator ObjectRotationAnimation()
@@ -96,14 +103,14 @@ namespace Assets.Scripts
             {
                 targetScale.x = originalScale.x;
                 targetScale.y = originalScale.y;
-                size = 1; // povecava se
+                size = -1; // povecava se
             }
             else
             {
                 // iz vodoravnog u okomito 
                 targetScale.x = originalScale.y / (originalSize.width / originalSize.height);
                 targetScale.y = 1 / (originalSize.width* currentScale.x / originalSize.height);
-                size = -1; // smanjuje se
+                size = +1; // smanjuje se
 
             }
 
@@ -115,8 +122,14 @@ namespace Assets.Scripts
             resizeStepX = (Math.Abs(targetScale.x - currentScale.x) / (numSteps) * size);
             resizeStepY = Math.Abs(targetScale.y - currentScale.y) / (numSteps) * size;
 
-            StartCoroutine(ObjectResizingAndRotationAnimation());
+            StartCoroutine(StartRotationAndResizing());
 
+        }
+
+        IEnumerator StartRotationAndResizing()
+        {
+            yield return new WaitForSeconds(SecondsBeforeRotation);
+            StartCoroutine(ObjectResizingAndRotationAnimation());
         }
 
         IEnumerator ObjectResizingAndRotationAnimation()

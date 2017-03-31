@@ -61,6 +61,12 @@ namespace Assets.Scripts.Unity
             gameHelperScript.SetOriginalSize();
         }
 
+        public void ReturnOriginalSize()
+        {
+            GameHelperScript gameHelperScript = (GameHelperScript)GameObject.Find("HelperGameObject").GetComponent(typeof(GameHelperScript));
+            gameHelperScript.ReturnOriginalSize();
+        }
+
         public void DeleteCards()
         {
             var cards = GameObject.Find("Cards");//getch(typeof (Button));
@@ -69,16 +75,38 @@ namespace Assets.Scripts.Unity
                 Destroy(child.gameObject);
         }
 
-        public void UpdateSizeOfTable()
+        public void UpdateSizeOfTable(int numX, int numY, float cardX, float cardY, float cardSpace)
         {
             GameObject go = GameObject.Find("Cards");
             RectTransform cardField = (RectTransform)go.GetComponent(typeof(RectTransform));
             var originalSize = cardField.rect;
 
-            RectTransform card = (RectTransform)go.GetComponent(typeof(RectTransform));
-            var originalCardSize = cardField.rect;
+            var newWidth = numX*cardX + (numX - 1)*cardSpace;
+
+            if (cardField.rect.width > newWidth)
+            {
+                var allChildren = go.transform.Cast<Transform>().Select(t => t.gameObject).ToArray();
+                go.transform.DetachChildren();
+
+                cardField.localScale = new Vector3(newWidth / originalSize.width, 1, 1);
+
+                foreach (GameObject child in allChildren)
+                {
+                    child.transform.parent = go.transform;
+                }
+                
+
+
+                //RectTransform card = (RectTransform)go.GetComponent(typeof(RectTransform));
+
+                //var originalCardSize = cardField.rect;
+            }
+
+            
             
             //cardField.transform.localScale = new Vector3(width / originalSize.width, 1);
         }
+
+        
     }
 }

@@ -41,7 +41,7 @@ namespace Assets.Scripts.Models
             _numCards = numCards * 2;
             CardList = CardFactory.DrawCards(_numCards, cardFieldWidth, cardFieldHeight);
 
-            GameBehaviour.UpdateSizeOfTable();
+            GameBehaviour.UpdateSizeOfTable(CardFactory.currentNumX, CardFactory.currentNumY, CardFactory.currentCardX, CardFactory.currentCardY, CardFactory.currentCardSpace);
 
             _cardFieldWidth = cardFieldWidth;
             _cardFieldHeight = cardFieldHeight;
@@ -187,6 +187,7 @@ namespace Assets.Scripts.Models
         {
             GameBehaviour.DeleteCards();
             GameBehaviour.QuickRotateReset();
+            GameBehaviour.ReturnOriginalSize();
             CardList = CardFactory.DrawCards(_numCards, _cardFieldWidth, _cardFieldHeight);
             
             foreach (Player player in PlayerList)

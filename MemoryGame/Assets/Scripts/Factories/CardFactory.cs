@@ -13,11 +13,14 @@ namespace Assets.Scripts.Factories
     {
         private const float cardX = 60;
         private const float cardY = 83;
-
-        private const float MaxCardX = 80;
-        private const float MaxCardY = 111;
-
         private const float cardSpace = 20;
+
+        public static float currentCardX = cardX;
+        public static float currentCardY = cardY;
+        public static float currentCardSpace = cardSpace;
+        public static int currentNumX = 0;
+        public static int currentNumY = 0;
+
 
         // init script
         private static List<Card> GetCards(int numCards)
@@ -70,8 +73,8 @@ namespace Assets.Scripts.Factories
             double upper = Math.Ceiling(numCards / lower);
 
 
-            int numY = (int)lower;
-            int numX = (int)upper;
+            int numY = currentNumY = (int)lower;
+            int numX = currentNumX = (int)upper;
             
             float c = 0;
 
@@ -130,6 +133,10 @@ namespace Assets.Scripts.Factories
             var computedCardY = cardY-c;
             var computedSpace = cardSpace-c;
 
+            currentCardX = computedCardX;
+            currentCardY = computedCardY;
+            currentCardSpace = computedSpace;
+
             float firstPointX = (cardFieldX - (numX * computedCardX + (numX - 1) * computedSpace)) / 2;
             float firstPointY = -(cardFieldY - (numY * computedCardY + (numY - 1) * computedSpace)) / 2;
             float firstPointZ = 0;
@@ -152,5 +159,6 @@ namespace Assets.Scripts.Factories
             
             return cards;
         }
+
     }
 }

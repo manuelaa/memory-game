@@ -13,7 +13,8 @@ namespace Assets.Scripts.Interfaces
         void RotateAndResize(int degrees);
         void QuickRotateReset();
         void SetOriginalSize();
+        void ReturnOriginalSize();
         void DeleteCards();
-        void UpdateSizeOfTable();
+        void UpdateSizeOfTable(int numX, int numY, float cardX, float cardY, float cardSpace);
     }
 }

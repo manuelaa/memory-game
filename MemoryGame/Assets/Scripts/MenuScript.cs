@@ -13,7 +13,7 @@ public class MenuScript : MonoBehaviour
     private const int PlayersNumberMin = 2;
     private const int PlayersNumberMax = 4;
     private const int CardsNumberMin = 4;
-    private const int CardsNumberMax = 15;
+    private const int CardsNumberMax = 20;
 
     public Dropdown playersDropdown;
     public Dropdown cardsDropdown;

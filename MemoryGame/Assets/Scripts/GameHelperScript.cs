@@ -29,6 +29,12 @@ namespace Assets.Scripts
             originalSize = cardField.rect;
         }
 
+        public void ReturnOriginalSize()
+        {
+            cardField = (RectTransform)GameObject.Find("Cards").GetComponent(typeof(RectTransform));
+            cardField.transform.localScale = new Vector3(1,1,1);
+        }
+
 
         public void Rotate(int degree)
         {
@@ -96,7 +102,7 @@ namespace Assets.Scripts
             {
                 // iz vodoravnog u okomito 
                 targetScale.x = originalScale.y / (originalSize.width / originalSize.height);
-                targetScale.y = originalScale.x / (originalSize.width / originalSize.height);
+                targetScale.y = 1 / (originalSize.width* currentScale.x / originalSize.height);
                 size = -1; // smanjuje se
 
             }

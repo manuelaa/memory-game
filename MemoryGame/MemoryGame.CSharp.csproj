@@ -71,7 +71,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\CardsScript.cs" />
     <Compile Include="Assets\Scripts\Factories\CardFactory.cs" />
     <Compile Include="Assets\Scripts\Factories\PlayerFactory.cs" />
     <Compile Include="Assets\Scripts\CardHelperScript.cs" />
@@ -86,12 +85,10 @@
     <Compile Include="Assets\Scripts\Models\Card.cs" />
     <Compile Include="Assets\Scripts\Models\ColorEnum.cs" />
     <Compile Include="Assets\Scripts\Models\DegreeEnum.cs" />
-    <Compile Include="Assets\Scripts\Models\DegreeKey.cs" />
     <Compile Include="Assets\Scripts\Models\ExtensionModel.cs" />
     <Compile Include="Assets\Scripts\Models\Game.cs" />
     <Compile Include="Assets\Scripts\Models\Player.cs" />
     <Compile Include="Assets\Scripts\Models\PlayerEnum.cs" />
-    <Compile Include="Assets\Scripts\TestButtonScript.cs" />
     <Compile Include="Assets\Scripts\Unity\CardUnityBehaviour.cs" />
     <Compile Include="Assets\Scripts\Unity\GameUnityBehaviour.cs" />
     <Compile Include="Assets\Scripts\Unity\PlayerUnityBehaviour.cs" />

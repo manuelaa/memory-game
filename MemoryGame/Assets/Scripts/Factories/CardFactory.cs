@@ -78,11 +78,11 @@ namespace Assets.Scripts.Factories
             
             float c = 0;
 
-            if ((cardFieldY - (numY * cardY + (numY - 1) * cardSpace)) < 0)
+            if ((cardFieldY - (numY * cardY + (numY - 1) * cardSpace)) != 0)
             {
                 c = -(cardFieldY - numY * cardY - (numY+1)*cardSpace)/(2*numY+1);
             }
-            else if ((cardFieldX - (numX * cardX + (numX - 1) * cardSpace)) < 0)
+            else if ((cardFieldX - (numX * cardX + (numX - 1) * cardSpace)) != 0)
             {
                 c = -(cardFieldX - numX * cardX - (numX + 1) * cardSpace) / (2 * numX + 1);
             }

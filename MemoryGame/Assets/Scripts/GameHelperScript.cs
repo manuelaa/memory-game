@@ -8,9 +8,13 @@ using UnityEngine.UI;
 
 namespace Assets.Scripts
 {
+    /// <summary>
+    /// Script attached to HelperGameObject in MainScene.
+    /// Script has to be attached because using corutines would not be possible if in the scene does not exists object with these script.
+    /// </summary>
     public class GameHelperScript : MonoBehaviour
     {
-        private const float SecondsBeforeRotation = 1.5f;
+        private const float SecondsBeforeRotation = 1.5f;   // number of seconds to wait before rotation
 
         private int rotationDirection = -1; // -1 for clockwise, 1 for anti-clockwise
         private int rotationStep = 10;
@@ -22,6 +26,9 @@ namespace Assets.Scripts
 
         private RectTransform cardField;
 
+        /// <summary>
+        /// Defines original size of cards golder ("Cards" game object)
+        /// </summary>
         public void SetOriginalSize()
         {
             cardField = (RectTransform)GameObject.Find("Cards").GetComponent(typeof(RectTransform));
@@ -29,6 +36,9 @@ namespace Assets.Scripts
             originalSize = cardField.rect;
         }
 
+        /// <summary>
+        /// Again sets initial size
+        /// </summary>
         public void ReturnOriginalSize()
         {
             cardField = (RectTransform)GameObject.Find("Cards").GetComponent(typeof(RectTransform));
@@ -36,29 +46,37 @@ namespace Assets.Scripts
         }
 
 
+        #region Rotation
+        /// <summary>
+        /// When rotation is needed
+        /// </summary>
+        /// <param name="degree"></param>
         public void Rotate(int degree)
         {
             cardField = (RectTransform)GameObject.Find("Cards").GetComponent(typeof(RectTransform));
-            //cardField.transform.eulerAngles = new Vector3(0, 0, 90);
-
-            Debug.Log("ROTATION STARTED");
-
-            //GameObject cardField = GameObject.Find("Cards");
+            
+            //Debug.Log("ROTATION STARTED");
 
             currentRotation = cardField.transform.eulerAngles;
             targetRotation.z = (currentRotation.z + (degree * rotationDirection));
-            //yield return new WaitForSeconds(3);
-            //StartCoroutine(ObjectRotationAnimation());
             StartCoroutine(StartRotation());
 
         }
 
+        /// <summary>
+        ///  Starts rotation after defined number of seconds
+        /// </summary>
+        /// <returns></returns>
         IEnumerator StartRotation()
         {
             yield return new WaitForSeconds(SecondsBeforeRotation);
             StartCoroutine(ObjectRotationAnimation());
         }
 
+        /// <summary>
+        /// Rotates in steps until condition is not met
+        /// </summary>
+        /// <returns></returns>
         IEnumerator ObjectRotationAnimation()
         {
             // add rotation step to current rotation.
@@ -70,30 +88,29 @@ namespace Assets.Scripts
             ((int)currentRotation.z < (int)targetRotation.z && rotationDirection > 0)) // for anti-clockwise
             {
                 StartCoroutine(ObjectRotationAnimation());
-                Debug.Log("CORUTINE STARTED");
+                ///Debug.Log("CORUTINE STARTED");
 
             }
             else
             {
                 cardField.transform.eulerAngles = targetRotation;
-                Debug.Log("ROTATION ENDED");
+                //Debug.Log("ROTATION ENDED");
                 cardField = null;
 
             }
         }
+        #endregion
 
-
-        //**********************************************************************************************************************************************
-
-
+        #region Rotation + Resize
+        /// <summary>
+        /// Rotates objects and changes its size
+        /// </summary>
+        /// <param name="degree"></param>
         public void ResizeAndRotate(int degree)
         {
             cardField = (RectTransform)GameObject.Find("Cards").GetComponent(typeof(RectTransform));
-            //cardField.transform.eulerAngles = new Vector3(0, 0, 90);
 
-            Debug.Log("ROTATION STARTED");
-
-            //GameObject cardField = GameObject.Find("Cards");
+            //Debug.Log("ROTATION STARTED");
 
             currentScale = cardField.transform.localScale;
 
@@ -142,7 +159,7 @@ namespace Assets.Scripts
             currentScale.y += resizeStepY;
             cardField.transform.localScale = currentScale;
 
-            Debug.Log(currentRotation);
+            //Debug.Log(currentRotation);
 
             yield return new WaitForSeconds(0);
             if (((int)currentRotation.z >
@@ -150,7 +167,7 @@ namespace Assets.Scripts
             ((int)currentRotation.z < (int)targetRotation.z && rotationDirection > 0)) // for anti-clockwise
             {
                 StartCoroutine(ObjectResizingAndRotationAnimation());
-                Debug.Log("CORUTINE STARTED");
+                //Debug.Log("CORUTINE STARTED");
 
             }
             else
@@ -159,12 +176,12 @@ namespace Assets.Scripts
 
                 cardField.transform.localScale = targetScale;
 
-                Debug.Log("ROTATION ENDED");
+                //Debug.Log("ROTATION ENDED");
                 cardField = null;
 
             }
         }
-
+        #endregion
 
 
 

@@ -5,6 +5,9 @@ using System.Text;
 
 namespace Assets.Scripts.Models
 {
+    /// <summary>
+    /// Max num of players included in game
+    /// </summary>
     public enum PlayerEnum
     {
         Player1 = 1,   

@@ -25,6 +25,9 @@ namespace Assets.Scripts.Models
             Draw();
         }
 
+        /// <summary>
+        /// Takes care of drawing player name and score
+        /// </summary>
         public void Draw()
         {
             Behaviour.DrawName(PlayerNum, Name, Score);

@@ -5,6 +5,9 @@ using System.Text;
 
 namespace Assets.Scripts.Models
 {
+    /// <summary>
+    /// Defines used colors
+    /// </summary>
     public enum ColorEnum
     {
         Yellow,

@@ -6,6 +6,9 @@ using Assets.Scripts.Unity;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+/// <summary>
+/// Script attached to Camera object on MainScene
+/// </summary>
 public class MainScript : MonoBehaviour
 {
     private Game _game;
@@ -43,6 +46,10 @@ public class MainScript : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Handles event of card changes
+    /// </summary>
+    /// <param name="cardId"></param>
     public void CardChanges(int cardId)
     {
         _game.CardChanges(cardId);
@@ -55,12 +62,19 @@ public class MainScript : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Play memory againe from begining.
+    /// Attached to button YES in "win screen"
+    /// </summary>
     public void PlayAgain()
     {
         _game.Reset();
         WinScreen.SetActive(false);
     }
 
+    /// <summary>
+    /// Ends application
+    /// </summary>
     public void Exit()
     {
         Debug.Log("QUIT");
@@ -68,11 +82,15 @@ public class MainScript : MonoBehaviour
         Application.Quit();
     }
 
+    /// <summary>
+    /// Returns to first scene, to menu
+    /// </summary>
     public void BackToMenu()
     {
         SceneManager.LoadScene(0);
     }
 
+    // test functions
     public void CLickRotate()
     {
         _game.Rotate();

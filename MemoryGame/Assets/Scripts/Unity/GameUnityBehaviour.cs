@@ -10,9 +10,15 @@ using UnityEngine.UI;
 
 namespace Assets.Scripts.Unity
 {
+    /// <summary>
+    /// Class for Unity specific behaviour of Game
+    /// </summary>
     public class GameUnityBehaviour : MonoBehaviour, IGameBehaviour
     {
-
+        /// <summary>
+        /// Rotates gametable
+        /// </summary>
+        /// <param name="degrees"></param>
         public void Rotate(DegreeEnum degrees)
         {
             switch (degrees)
@@ -37,36 +43,56 @@ namespace Assets.Scripts.Unity
             }
         }
 
+        /// <summary>
+        /// Resets stored numbers
+        /// </summary>
         public void QuickRotateReset()
         {
             var cardField = (RectTransform)GameObject.Find("Cards").GetComponent(typeof(RectTransform));
             cardField.transform.eulerAngles = new Vector3(0, 0, 0);
         }
 
+        /// <summary>
+        /// Rotates gametable
+        /// </summary>
+        /// <param name="degrees"></param>
         public void SimpleRotate(int degrees)
         {
             GameHelperScript gameHelperScript = (GameHelperScript)GameObject.Find("HelperGameObject").GetComponent(typeof(GameHelperScript));
             gameHelperScript.Rotate(degrees);
         }
 
+        /// <summary>
+        /// Rotates and resizes gametable
+        /// </summary>
+        /// <param name="degrees"></param>
         public void RotateAndResize(int degrees)
         {
             GameHelperScript gameHelperScript = (GameHelperScript)GameObject.Find("HelperGameObject").GetComponent(typeof(GameHelperScript));
             gameHelperScript.ResizeAndRotate(degrees);
         }
 
+        /// <summary>
+        /// Sets original sizes
+        /// </summary>
         public void SetOriginalSize()
         {
             GameHelperScript gameHelperScript = (GameHelperScript)GameObject.Find("HelperGameObject").GetComponent(typeof(GameHelperScript));
             gameHelperScript.SetOriginalSize();
         }
-
+        
+        /// <summary>
+        /// Sets original sizes
+        /// </summary>
         public void ReturnOriginalSize()
         {
             GameHelperScript gameHelperScript = (GameHelperScript)GameObject.Find("HelperGameObject").GetComponent(typeof(GameHelperScript));
             gameHelperScript.ReturnOriginalSize();
         }
 
+        /// <summary>
+        /// Destroys cards
+        /// </summary>
         public void DeleteCards()
         {
             var cards = GameObject.Find("Cards");//getch(typeof (Button));
@@ -75,6 +101,14 @@ namespace Assets.Scripts.Unity
                 Destroy(child.gameObject);
         }
 
+        /// <summary>
+        /// Updates size of table to defined values
+        /// </summary>
+        /// <param name="numX"></param>
+        /// <param name="numY"></param>
+        /// <param name="cardX"></param>
+        /// <param name="cardY"></param>
+        /// <param name="cardSpace"></param>
         public void UpdateSizeOfTable(int numX, int numY, float cardX, float cardY, float cardSpace)
         {
             GameObject go = GameObject.Find("Cards");
@@ -94,17 +128,10 @@ namespace Assets.Scripts.Unity
                 {
                     child.transform.parent = go.transform;
                 }
-                
 
-
-                //RectTransform card = (RectTransform)go.GetComponent(typeof(RectTransform));
-
-                //var originalCardSize = cardField.rect;
             }
 
             
-            
-            //cardField.transform.localScale = new Vector3(width / originalSize.width, 1);
         }
 
         

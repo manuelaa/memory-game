@@ -4,6 +4,11 @@ using System.Collections;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+/// <summary>
+/// Script attached to Camera object on MenuScene.
+/// Defines number of players, number of cards and defines if table rotation is allowed.
+/// Initializes dropdows.
+/// </summary>
 public class MenuScript : MonoBehaviour
 {
     public static int PlayersNumber = 0;

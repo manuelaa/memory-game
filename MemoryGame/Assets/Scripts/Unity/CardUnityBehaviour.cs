@@ -11,6 +11,9 @@ using UnityEngine.UI;
 
 namespace Assets.Scripts.Unity
 {
+    /// <summary>
+    /// Class for Unity specific behaviour of card
+    /// </summary>
     public class CardUnityBehaviour : MonoBehaviour, ICardBehaviour, IPointerClickHandler
     {
         //private Card Card;
@@ -22,12 +25,16 @@ namespace Assets.Scripts.Unity
             GameObject go = GameObject.Find("Camera");
             mainScript = (MainScript)go.GetComponent(typeof(MainScript));
         }
-
-        public void Click()
-        {
-            throw new NotImplementedException();
-        }
-
+        
+        /// <summary>
+        /// Draws card on defined position with defined size
+        /// </summary>
+        /// <param name="_card"></param>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="z"></param>
+        /// <param name="width"></param>
+        /// <param name="height"></param>
         public void Draw(Card _card, float x, float y, float z, float width, float height)
         {
             GameObject gameObject = GameObject.Find("Cards");
@@ -49,13 +56,21 @@ namespace Assets.Scripts.Unity
             buttonName = _card.ID.ToString();
         }
 
+        /// <summary>
+        /// Starts when click event is triggered
+        /// </summary>
+        /// <param name="eventData"></param>
         public void OnPointerClick(PointerEventData eventData)
         {
-            //Debug.Log("HERE");
             mainScript.CardChanges(Convert.ToInt32(EventSystem.current.currentSelectedGameObject.name));
-            Debug.Log(EventSystem.current.currentSelectedGameObject.name);
         }
 
+
+        /// <summary>
+        /// Rotates a card on either image side or back side
+        /// </summary>
+        /// <param name="back"></param>
+        /// <param name="image"></param>
         public void Rotate(bool back = true, string image = "cardBackground")
         {
 
@@ -70,6 +85,12 @@ namespace Assets.Scripts.Unity
             }
         }
 
+        /// <summary>
+        /// Rotates card but after defined number of seconds
+        /// </summary>
+        /// <param name="seconds"></param>
+        /// <param name="back"></param>
+        /// <param name="image"></param>
         public void WaitToRotate(float seconds, bool back, string image)
         {
             Rotate(false, image);

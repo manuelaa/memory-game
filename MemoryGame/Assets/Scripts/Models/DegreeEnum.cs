@@ -5,6 +5,9 @@ using System.Text;
 
 namespace Assets.Scripts.Models
 {
+    /// <summary>
+    /// Defines used degrees
+    /// </summary>
     public enum DegreeEnum
     {
         DegreesPlus90 = 90,
